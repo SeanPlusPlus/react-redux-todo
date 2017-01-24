@@ -7,6 +7,7 @@ import watch from 'gulp-watch';
 import del from 'del';
 import webpack from 'webpack-stream';
 import connect from 'gulp-connect';
+import open from 'gulp-open';
 import webpackConfig from './webpack.config.babel';
 
 const paths = {
@@ -62,4 +63,13 @@ gulp.task('connect', () => {
   });
 });
 
-gulp.task('default', ['watch', 'main', 'connect']);
+gulp.task('op', () => {
+  const options = {
+    uri: 'http://localhost:3000',
+    app: 'google chrome',
+  };
+  gulp.src(paths.distDir)
+    .pipe(open(options));
+});
+
+gulp.task('default', ['watch', 'main', 'connect', 'op']);
