@@ -61,6 +61,8 @@
   "dependencies": {
     "babel-polyfill": "^6.16.0",
     "babel-preset-react": "^6.16.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-watch": "^4.3.11",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-dom": "^15.4.2",

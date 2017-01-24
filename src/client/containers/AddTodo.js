@@ -24,7 +24,7 @@ let AddTodo = ({ dispatch }) => {
           >
             <FormGroup controlId="formHorizontalText">
               <ControlLabel>
-                New Todo
+                New Todo!!!
               </ControlLabel>
               <input
                 className="form-control"

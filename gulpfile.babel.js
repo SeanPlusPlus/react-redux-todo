@@ -3,8 +3,10 @@
 import gulp from 'gulp';
 import babel from 'gulp-babel';
 import eslint from 'gulp-eslint';
+import watch from 'gulp-watch';
 import del from 'del';
 import webpack from 'webpack-stream';
+import connect from 'gulp-connect';
 import webpackConfig from './webpack.config.babel';
 
 const paths = {
@@ -41,14 +43,23 @@ gulp.task('build', ['lint', 'clean'], () =>
     .pipe(gulp.dest(paths.libDir))
 );
 
-gulp.task('main', ['lint', 'clean'], () =>
+gulp.task('main', ['lint', 'clean'], () => {
   gulp.src(paths.clientEntryPoint)
     .pipe(webpack(webpackConfig))
-    .pipe(gulp.dest(paths.distDir))
-);
+    .pipe(gulp.dest(paths.distDir));
+});
 
 gulp.task('watch', () => {
   gulp.watch(paths.allSrcJs, ['main']);
+  watch(paths.distDir).pipe(connect.reload());
 });
 
-gulp.task('default', ['watch', 'main']);
+gulp.task('connect', () => {
+  connect.server({
+    root: paths.distDir,
+    livereload: true,
+    port: 3000,
+  });
+});
+
+gulp.task('default', ['watch', 'main', 'connect']);
